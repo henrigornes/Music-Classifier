@@ -16,7 +16,11 @@ class browse :
             raise ValueError(f"Le chemin {chemin} n'est pas un répertoire.")
     @property
     def fichiers(self):
-        return [f.name for f in self.dossier.iterdir() if f.is_file()]
+        liste =  [str(f.resolve()) for f in self.dossier.iterdir() if f.is_file()]
+        for f in self.sous_dossiers:
+            liste.extend(f.fichiers)
+        return liste
+
     @property
     def sous_dossiers(self):
         return [browse(d) for d in self.dossier.iterdir() if d.is_dir()]
@@ -27,7 +31,7 @@ class browse :
 
 def main():
     path = input("Indiquez un répertoire : ")
-    return browse(path).fichiers()
+    print(browse(path).fichiers)
    
 if __name__ == "__main__":
     main()
