@@ -1,0 +1,14 @@
+from browse import browse
+class track:
+    def __init__(self, chemin, nom):
+        self.chemin = chemin
+        self.nom = nom
+        self.bpm = None
+        self.cle = None
+        self.vecteur = None
+        self.groupe = None
+    def __repr__(self):
+        if self.bpm:
+            return f"<Track: {self.nom} | Chemin: {self.chemin} | {self.bpm} BPM | Cle: {self.cle} | Groupe: {self.groupe}>"   
+        else:
+            return f"<Track: {self.nom} (Non analysé)>"
