@@ -1,2 +1,2 @@
-class Mix_harmonique(self):
+class Mix_harmonique:
     ...
