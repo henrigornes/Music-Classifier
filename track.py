@@ -20,3 +20,4 @@ class track:
             return f"<Track: {self.nom} | Chemin: {self.chemin} | {self.bpm} BPM | Cle: {self.cle} | Groupe: {self.groupe} | Label: {self.label} | Styles: {', '.join(self.styles)} | Annee: {self.annee}>"   
         else:
             return f"<Track: {self.nom} (Non analysé)>"
+    
