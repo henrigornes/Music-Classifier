@@ -1,0 +1,11 @@
+# Fichiers d'environnement (Mots de passe et clés API)
+.env
+
+# Cache Python et environnement virtuel
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Fichiers système
+.DS_Store
