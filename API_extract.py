@@ -1,14 +1,11 @@
 import os
-import requests
-from dotenv import load_dotenv
+import requests 
 
 
-# Charge les variables du fichier .env
-load_dotenv()
 
 class ApiService:
     def __init__(self):
         self.api_key = os.getenv("DISCOGS_API_KEY")
         if not self.api_key:
-            raise ValueError("DISCOGS_API_KEY est introuvable dans le .env !")
-        self.headers = {"Authorization": f"Discogs token={self.api_key}","User-Agent": "CS50PMusicApp/1.0"}
+            raise ValueError("La variable d'environnement DISCOGS_API_KEY n'est pas définie !")
+        self.headers = {"Authorization": f"Discogs token={self.api_key}","User-Agent": "ApplicationHarmonique/1.0 (contact: henri.gornes@gmail.com)"}
