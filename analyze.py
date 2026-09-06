@@ -28,10 +28,9 @@ class Analyze:
     def analyze(self, track: track):
         path = track.chemin
         y, sr = librosa.load(path, offset = 60, duration= 60)
-        # Perform analysis on the loaded audio file
         bpm = librosa.feature.tempo(y=y, sr=sr)
-        # Store the analysis results in the track object
-        track.bpm = round(float(bpm[0]), 1)
+        tempo_val = float(np.asanyarray(bpm).flat[0])
+        track.bpm = round(tempo_val, 1)
         track.cle = self.obtenir_cle(y, sr)
 
         mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
