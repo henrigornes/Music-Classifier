@@ -17,7 +17,10 @@ class track:
 
     def __repr__(self):
         if self.bpm:
-            return f"<Track: {self.nom} | Chemin: {self.chemin} | {self.bpm} BPM | Cle: {self.cle} | Groupe: {self.groupe} | Label: {self.label} | Styles: {', '.join(self.styles)} | Annee: {self.annee}>"   
-        else:
-            return f"<Track: {self.nom} (Non analysé)>"
-    
+            styles_str = ", ".join(self.styles) if self.styles else "Inconnu"
+            return (
+                f"<Track: {self.nom} - {self.artiste} | {self.bpm} BPM | "
+                f"Clé: {self.cle} | Label: {self.label or 'N/A'} | "
+                f"Styles: {styles_str} | Année: {self.annee or 'N/A'}>"
+            )
+        return f"<Track: {self.nom} - {self.artiste} (Non analysé)>"

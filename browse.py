@@ -1,6 +1,9 @@
 from pathlib import Path
+from mutagen import File
+import re
 
 class browse :
+
     def __init__(self, chemin):
         self.dossier = chemin
 
@@ -16,7 +19,8 @@ class browse :
             raise ValueError(f"Le chemin {chemin} n'est pas un répertoire.")
     @property
     def fichiers(self):
-        liste =  [str(f.resolve()) for f in self.dossier.iterdir() if f.is_file()]
+        extensions_audio = {".mp3", ".wav", ".flac", ".m4a", ".aif", ".aiff"}
+        liste =  [str(f.resolve()) for f in self.dossier.iterdir() if f.is_file() and f.suffix.lower() in extensions_audio]
         for f in self.sous_dossiers:
             liste.extend(f.fichiers)
         return liste
@@ -27,11 +31,36 @@ class browse :
     @property
     def compteur(self):
         return len(self.fichiers)
+    @property
+    def tracks(self):
+        return [self._track_fichier(f) for f in self.fichiers]
     
+    def _track_fichier(self, chemin_fichier):
+            artist, titre = None, None
+            try: 
+                audio = File(chemin_fichier)
+                if audio is not None and audio.tags :
+                    for cle_artist in ["artist", "TPE1", "©ART"]:
+                        if cle_artist in audio.tags:
+                            artist = str(audio.tags[cle_artist][0])
+                            break
+                    for cle_titre in ["title", "TIT2", "©nam"]:
+                        if cle_titre in audio.tags:
+                            titre = str(audio.tags[cle_titre][0])
+                            break
+            except Exception:
+                pass
 
-def main():
-    path = input("Indiquez un répertoire : ")
-    print(browse(path).fichiers)
-   
-if __name__ == "__main__":
-    main()
+            if not artist or not titre:
+                path_obj = Path(chemin_fichier)
+                nom_nettoye = path_obj.stem
+                nom_nettoye = re.sub(r"^([A-Z]\d|\d{1,2})[\.\s\-_]+", "", nom_nettoye, flags=re.IGNORECASE)
+
+                if "-" in nom_nettoye :
+                    parties = nom_nettoye.split("-", 1)
+                    artist = artist or parties[0].strip()
+                    titre = titre or parties[1].strip()
+                else :
+                    artist = artist or "Artiste Inconnu"
+                    titre = titre or nom_nettoye.strip()
+            return Track(chemin=chemin_fichier, nom= titre, artiste=artist)
