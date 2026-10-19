@@ -13,7 +13,7 @@ def main():
         tolerance_bpm = (float(tolerance_input if tolerance_input else 5.0))
     except ValueError:
         tolerance_bpm = 5.0
-        
+
     try :
         tracks = load_library(dossier)
         print(f"{len(tracks)} morceaux chargés.")
@@ -41,4 +41,5 @@ def automix(track_actuelle, candidats):
 
 
 
-
+if __name__ == "__main__" :
+    main()
