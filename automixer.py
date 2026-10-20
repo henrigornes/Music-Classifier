@@ -1,6 +1,6 @@
 import numpy as np 
-from track import track 
-from mix_harmonique import mix_harmonique
+from track import Track 
+from mix_harmonique import Mix_harmonique
 class AutoMixer:
     def __init__(self, poids_style: float = 0.6, poids_energie: float = 0.4, tolerance_bpm: float = 0.05,):
         total = poids_style + poids_energie
@@ -33,13 +33,13 @@ class AutoMixer:
         if track_actuelle.bpm and candidat.bpm:
             ecart_bpm = (abs(track_actuelle.bpm - candidat.bpm)/track_actuelle.bpm)
             if ecart_bpm > self.tolerance_bpm:
-                return None
-        if not mix_harmonique(track_actuelle.cle, candidat.cle):
-            return None
+                return None, "BPM unmatch"
+        if not Mix_harmonique(track_actuelle.cle, candidat.cle):
+            return None, "key unmatch"
         
         score_styles = self._score_styles(track_actuelle, candidat)
         score_energie = self._score_energie(track_actuelle, candidat)
         score_final = (score_styles*self.poids_style) + (score_energie*self.poids_energie)
-        return round(score_final, 2)
+        return round(score_final, 2), "Valid"
 
 

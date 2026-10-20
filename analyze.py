@@ -1,6 +1,6 @@
 import librosa
 import numpy as np
-from track import track
+from track import Track
 class Analyze:
     def obtenir_cle(self, y, sr):
         chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
