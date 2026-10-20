@@ -1,6 +1,5 @@
 import sys
 from analyze import Analyze
-from API_extract import ApiService
 from automixer import AutoMixer
 from browse import browse
 from mix_harmonique import mix_harmonique
@@ -20,6 +19,12 @@ def main():
         if len(tracks)<2:
             print("You need at least 2 tracks for a mix.")
             return 
+        print("\n--- Best Transitions ---")
+        reco = automix(tracks[0], tracks[1:])
+        for track, score in reco:
+            print(f" -> {track.artiste} - {track.nom} ({track.cle}) | Score :" f" {score * 100:.0f}%")
+    except Exception as e :
+        print(f"Error : {e}")
         
 
 def load_library(folder_path):
