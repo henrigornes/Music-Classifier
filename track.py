@@ -1,5 +1,4 @@
-from browse import browse
-class track:
+class Track:
     def __init__(self, chemin, nom, artiste):
 #browse class
         self.chemin = chemin

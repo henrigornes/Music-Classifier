@@ -1,8 +1,9 @@
 from pathlib import Path
 from mutagen import File
 import re
+from track import Track
 
-class browse :
+class Browse :
 
     def __init__(self, chemin):
         self.dossier = chemin

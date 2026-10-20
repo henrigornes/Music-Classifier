@@ -1,4 +1,4 @@
-def mix_harmonique(cle1, cle2):
+def Mix_harmonique(cle1, cle2):
 
     cle1, cle2 = str(cle1).strip().upper(), str(cle2).strip().upper()
 
@@ -32,7 +32,7 @@ def main():
     cle1 = input("Entrez la première clé (ex: 1A): ")
     cle2 = input("Entrez la deuxième clé (ex: 2B): ")
 
-    if mix_harmonique(cle1, cle2):
+    if Mix_harmonique(cle1, cle2):
         print(f"Les clés {cle1} et {cle2} sont harmoniques.")
     else:
         print(f"Les clés {cle1} et {cle2} ne sont pas harmoniques.")

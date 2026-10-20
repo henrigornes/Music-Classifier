@@ -1,8 +1,8 @@
 import sys
 from analyze import Analyze
 from automixer import AutoMixer
-from browse import browse
-from mix_harmonique import mix_harmonique
+from browse import Browse
+from mix_harmonique import Mix_harmonique
 
 def main():
     print("=== Auto-Mixer DJ (CS50P) V1.0 ===")
@@ -28,7 +28,7 @@ def main():
         
 
 def load_library(folder_path):
-    nav = browse(folder_path)
+    nav = Browse(folder_path)
     return nav.tracks
 
 def compatibility_key(key1, key2):
