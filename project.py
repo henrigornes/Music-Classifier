@@ -32,23 +32,32 @@ def main():
             f" -> {morceau_depart.artiste} - {morceau_depart.nom} "
             f"({morceau_depart.bpm} BPM, Clé: {morceau_depart.cle})"
         )
-
+        tracks_used = []
+        n = int(input("Number of tracks in the mix : "))
         print("\n--- Best Transitions ---")
-        reco = automix(morceau_depart, tracks[1:], tolerance_bpm)
-        if not reco:
-            print(
-                "None compatible transitions found (check the BPM or the"
-                " keys)."
-            )
+        candidats_disponibles = [t for t in tracks if t != morceau_depart]
+        for i in range(n) :
+            reco = automix(morceau_depart, candidats_disponibles, tolerance_bpm)
+            if not reco:
+                print(
+                    "None compatible transitions found (check the BPM or the"
+                    " keys)."
+                )
+                break
+            meilleur_track, meilleur_score = reco[0]
 
-        for track, score in reco:
+
             print(
-                f" -> {track.artiste} - {track.nom} ({track.cle}) | Score :"
-                f" {score * 100:.0f}%"
-            )
+                    f" -> {meilleur_track.artiste} - {meilleur_track.nom} ({meilleur_track.cle}) | Score :"
+                    f" {meilleur_score * 100:.0f}%"
+                )
+            
+            morceau_depart = meilleur_track
+            if meilleur_track in candidats_disponibles:
+                candidats_disponibles.remove(meilleur_track)
 
     except Exception as e:
-        print(f"Error : {e}")
+            print(f"Error : {e}")
 
 
 def load_library(folder_path):

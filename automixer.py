@@ -1,6 +1,7 @@
 import numpy as np 
 from track import Track 
 from mix_harmonique import Mix_harmonique
+from sklearn.metrics.pairwise import cosine_similarity
 class AutoMixer:
     def __init__(self, poids_style: float = 0.6, poids_energie: float = 0.4, tolerance_bpm: float = 0.05,):
         total = poids_style + poids_energie
