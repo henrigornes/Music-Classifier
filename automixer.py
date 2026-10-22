@@ -13,7 +13,7 @@ class AutoMixer:
 
     SCALES = np.array([100.0] * 13 + [50.0] * 13 + [2500.0, 1000.0, 5000.0, 2000.0, 0.1, 0.05, 120.0])
 
-    def __init__(self, poids_style: float = 0.6, poids_energie: float = 0.4, tolerance_bpm: float = 0.05,):
+    def __init__(self, poids_style: float = 0.3, poids_energie: float = 0.7, tolerance_bpm: float = 0.05,):
         total = poids_style + poids_energie
         if total >0 :
             self.poids_style = poids_style / total
