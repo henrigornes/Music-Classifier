@@ -9,7 +9,6 @@ class AutoMixer:
             poids_style = poids_style / total
             poids_energie = poids_energie / total
 
-
         self.poids_style = poids_style
         self.poids_energie = poids_energie
         self.tolerance_bpm = tolerance_bpm
