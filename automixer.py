@@ -44,9 +44,16 @@ class AutoMixer:
 
         v1 = np.array(track1.vecteur, dtype = float)
         v2 = np.array(track2.vecteur, dtype = float)
-        #A revoir pour la suite 
-        dist = np.linalg.norm(v2 -v1)
-        return float(1/(1+dist))
+
+        if len(v1) == len(self.SCALES) and len(v2) == len(self.SCALES):
+            v1 = v1/self.SCALES
+            v2 = v2/self.SCALES
+        
+        v1_2d = v1.reshape(1, -1)
+        v2_2d = v2.reshape(1, -1)
+
+        similarity = float(cosine_similarity(v1_2d, v2_2d)[0,0])
+        return float(np.clip(similarity, 0.0, 1.0))
     
     def transition(self, track_actuelle, candidat):
 
@@ -64,5 +71,9 @@ class AutoMixer:
         
         score_styles = self._score_styles(track_actuelle, candidat)
         score_energie = self._score_energie(track_actuelle, candidat)
-        score_final = (score_styles*self.poids_style) + (score_energie*self.poids_energie)
+        if score_styles is None:
+            score_final = score_energie
+        else:
+            score_final = (score_styles*self.poids_style) + (score_energie*self.poids_energie)
+
         return round(score_final, 2), "Valid"

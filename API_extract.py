@@ -11,7 +11,7 @@ class ApiService:
         self.headers = {"Authorization": f"Discogs token={self.api_key}","User-Agent": "ApplicationHarmonique/1.0 (contact: henri.gornes@gmail.com)"}
         self.base_url = "https://api.discogs.com"
 
-    def search_release(self, artist:str, title:str)-> dict | None:
+    def search_release(self, artist, title):
         url = f"{self.base_url}/database/search"
         params = {"artist": artist, "track": title, "type": "release"}
         try: 
@@ -25,4 +25,14 @@ class ApiService:
         except requests.exceptions.RequestException as e:
             print(f"Erreur lors de la requête API : {e}")
             return None
+        
+    def enrich_track(self, track):
+        if not track.artiste or track.artiste == "Artiste Inconnu":
+            return 
+        result = self.search_release(artist = track.artiste, title = track.nom)
+        if result is not None:
+            track.styles = result.get("style", []) or result.get("genre", [])
+            track.annee = result.get("year")
+
+            
 

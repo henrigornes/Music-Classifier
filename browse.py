@@ -39,6 +39,7 @@ class Browse :
     def _track_fichier(self, chemin_fichier):
             artist = None 
             titre = None
+            styles = None
             try: 
                 audio = File(chemin_fichier)
                 if audio is not None and audio.tags :
@@ -50,6 +51,15 @@ class Browse :
                         if cle_titre in audio.tags:
                             titre = str(audio.tags[cle_titre][0])
                             break
+                    for cle_genre in ["genre", "TCON", "©gen"]:
+                        if cle_genre in audio.tags:
+                            tag_genre = str(audio.tags[cle_genre][0])
+                            if "/" in tag_genre:
+                                styles = [s.strip() for s in tag_genre.split("/")]
+                            else :
+                                styles = [tag_genre.strip()]
+                            break
+
             except Exception:
                 pass
 
@@ -65,4 +75,7 @@ class Browse :
                 else:
                     artist = artist or "Artiste Inconnu"
                     titre = titre or nom_nettoye.strip()
-            return Track(chemin=chemin_fichier, nom= titre, artiste=artist)
+            track = Track(chemin=chemin_fichier, nom= titre, artiste=artist)
+            if styles is not None:
+                track.styles = styles
+            return track

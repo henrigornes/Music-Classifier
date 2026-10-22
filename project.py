@@ -3,6 +3,7 @@ from analyze import Analyze
 from automixer import AutoMixer
 from browse import Browse
 from mix_harmonique import Mix_harmonique
+from API_extract import ApiService
 
 
 def main():
@@ -57,11 +58,20 @@ def load_library(folder_path):
     nav = Browse(folder_path)
     tracks = nav.tracks
     analyzer = Analyze()
+    api = None
+    try:
+        api = ApiService()
+    except Exception as e :
+        print("API request failed, analysis without Discogs")
+
     for track in tracks:
         try:
             analyzer.analyze(track)
         except Exception as e:
             print(f"Analyze error for {track.nom} : {e}")
+        if api and not track.styles:
+            api.enrich_track(track)
+
     return tracks
 
 
