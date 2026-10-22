@@ -8,7 +8,7 @@ class ApiService:
         self.api_key = os.getenv("DISCOGS_API_KEY")
         if not self.api_key:
             raise ValueError("La variable d'environnement DISCOGS_API_KEY n'est pas définie !")
-        self.headers = {"Authorization": f"Discogs token={self.api_key}","User-Agent": "ApplicationHarmonique/1.0 (contact: henri.gornes@gmail.com)"}
+        self.headers = {"Authorization": f"Discogs token={self.api_key}","User-Agent": "Music-Classifier/1.0 (contact: henri.gornes@gmail.com)"}
         self.base_url = "https://api.discogs.com"
 
     def search_release(self, artist, title):

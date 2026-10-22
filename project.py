@@ -61,6 +61,7 @@ def load_library(folder_path):
     api = None
     try:
         api = ApiService()
+        print("Connection to discogs succeded")
     except Exception as e :
         print("API request failed, analysis without Discogs")
 
