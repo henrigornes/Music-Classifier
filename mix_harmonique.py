@@ -1,11 +1,14 @@
 def Mix_harmonique(cle1, cle2):
 
-    cle1, cle2 = str(cle1).strip().upper(), str(cle2).strip().upper()
+    cle1 = str(cle1).strip().upper()
+    cle2 = str(cle2).strip().upper()
 
     try:
         num1, lettre1 = int(cle1[:-1]), cle1[-1]
         num2, lettre2 = int(cle2[:-1]), cle2[-1]
-        if not (1 <= num1 <= 12 and 1 <= num2 <= 12):
+        if num1 < 1 or num1 > 12 : 
+            raise ValueError("Numéro de clé hors limites (1-12).")
+        if num2 < 1 or num2 > 12 : 
             raise ValueError("Numéro de clé hors limites (1-12).")
         if lettre1 not in "AB" or lettre2 not in "AB":
             raise ValueError("Lettre de clé invalide (doit être A ou B).")

@@ -42,5 +42,3 @@ class AutoMixer:
         score_energie = self._score_energie(track_actuelle, candidat)
         score_final = (score_styles*self.poids_style) + (score_energie*self.poids_energie)
         return round(score_final, 2), "Valid"
-
-

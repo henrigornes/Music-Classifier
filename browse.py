@@ -37,7 +37,8 @@ class Browse :
         return [self._track_fichier(f) for f in self.fichiers]
     
     def _track_fichier(self, chemin_fichier):
-            artist, titre = None, None
+            artist = None 
+            titre = None
             try: 
                 audio = File(chemin_fichier)
                 if audio is not None and audio.tags :
@@ -57,11 +58,11 @@ class Browse :
                 nom_nettoye = path_obj.stem
                 nom_nettoye = re.sub(r"^([A-Z]\d|\d{1,2})[\.\s\-_]+", "", nom_nettoye, flags=re.IGNORECASE)
 
-                if "-" in nom_nettoye :
+                if "-" in nom_nettoye:
                     parties = nom_nettoye.split("-", 1)
                     artist = artist or parties[0].strip()
                     titre = titre or parties[1].strip()
-                else :
+                else:
                     artist = artist or "Artiste Inconnu"
                     titre = titre or nom_nettoye.strip()
             return Track(chemin=chemin_fichier, nom= titre, artiste=artist)
