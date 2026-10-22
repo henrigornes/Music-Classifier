@@ -25,7 +25,7 @@ class Analyze:
                 cle_trouvee = camelot_mineur[i]
         return cle_trouvee
     
-    def analyze(self, track: track):
+    def analyze(self, track: Track):
         path = track.chemin
         y, sr = librosa.load(path, offset = 60, duration= 60)
         bpm = librosa.feature.tempo(y=y, sr=sr)
@@ -37,4 +37,4 @@ class Analyze:
         cent = librosa.feature.spectral_centroid(y=y, sr=sr)
         rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
         zcr = librosa.feature.zero_crossing_rate(y)
-        track.vecteur = np.hstack([mfcc.mean(axis=1), mfcc.std(axis=1), cent.mean(), cent.std(), rolloff.mean(), rolloff.std(), zcr.mean(), zcr.std(), float(bpm[0])]).tolist()
+        track.vecteur = np.hstack([mfcc.mean(axis=1), mfcc.std(axis=1), cent.mean(), cent.std(), rolloff.mean(), rolloff.std(), zcr.mean(), zcr.std(), tempo_val]).tolist()

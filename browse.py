@@ -15,9 +15,9 @@ class Browse :
     def dossier(self, chemin):
         self._dossier = Path(chemin)
         if not self._dossier.exists():
-            raise ValueError(f"Le chemin {chemin} n'existe pas.")
+            raise ValueError(f"Le chemin {chemin} n'existe pas")
         if not self._dossier.is_dir():
-            raise ValueError(f"Le chemin {chemin} n'est pas un répertoire.")
+            raise ValueError(f"Le chemin {chemin} n'est pas un répertoire")
     @property
     def fichiers(self):
         extensions_audio = {".mp3", ".wav", ".flac", ".m4a", ".aif", ".aiff"}
@@ -28,7 +28,7 @@ class Browse :
 
     @property
     def sous_dossiers(self):
-        return [browse(d) for d in self.dossier.iterdir() if d.is_dir()]
+        return [Browse(d) for d in self.dossier.iterdir() if d.is_dir()]
     @property
     def compteur(self):
         return len(self.fichiers)
