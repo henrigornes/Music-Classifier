@@ -1,0 +1,9 @@
+librosa
+numpy
+os
+requests
+sklearn.metrics.pairwise
+pathlib
+re
+mutagen
+sys
