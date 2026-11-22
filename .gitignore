@@ -1,5 +1,6 @@
 # Fichiers d'environnement (Mots de passe et clés API)
 .env
+!.env.example
 
 # Cache Python et environnement virtuel
 __pycache__/
