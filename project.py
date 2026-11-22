@@ -28,7 +28,6 @@ def main():
         morceau_depart = tracks[0]
         print(f"\nSTARTER TRACK :")
         print(f"{morceau_depart.artiste} - {morceau_depart.nom} ({morceau_depart.bpm} BPM, Clé: {morceau_depart.cle})")
-        tracks_used = []
         n = int(input("Number of tracks in the mix : "))
         print("\n--- Best Transitions ---")
         candidats_disponibles = []

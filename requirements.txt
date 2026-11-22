@@ -1,9 +1,5 @@
 librosa
 numpy
-os
 requests
-sklearn.metrics.pairwise
-pathlib
-re
+scikit-learn
 mutagen
-sys
