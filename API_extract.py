@@ -1,10 +1,12 @@
 import os
 import requests 
+from dotenv import load_dotenv
 
 
 
 class ApiService:
     def __init__(self):
+        load_dotenv()
         self.api_key = os.getenv("DISCOGS_API_KEY")
         if not self.api_key:
             raise ValueError("La variable d'environnement DISCOGS_API_KEY n'est pas définie !")
